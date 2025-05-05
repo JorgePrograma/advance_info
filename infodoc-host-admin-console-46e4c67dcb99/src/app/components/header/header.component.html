@@ -1,0 +1,46 @@
+<div class="host-header">
+  <div class="host-header-toolbar">
+    <!-- Logo y Barra de Búsqueda -->
+    <div class="host-header-left-section">
+      <img src="/assets/img/logo.png" alt="ID Solution Logo" class="host-header-logo">
+      <div class="host-search-container">
+        <div class="host-input-container">
+          <input type="text" class="host-input-with-underline" placeholder="Buscar..." >
+          <div class="host-underline-container">
+            <span class="host-underline"></span>
+          </div>
+          <button class="host-search-icon">
+            <!-- Reemplaza mat-icon con un SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+          <button *ngIf="searchText" class="host-clear-icon" (click)="searchText = ''">
+            <svg class="host-clear-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- User Profile -->
+    <div #userProfile class="host-user-profile" (click)="openModal()">
+      <div class="host-avatar">
+        {{ user.initial }}
+      </div>
+      <div class="host-user-info">
+        <span class="host-user-name">{{ user.name }}</span>
+        <span class="host-user-email">{{ user.email }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de perfil (colocado fuera del toolbar) -->
+<app-user-profile-modal *ngIf="isModalOpen"
+                        [user]="user"
+                        [top]="modalTop"
+                        [left]="modalLeft"
+                        (close)="isModalOpen = false">
+</app-user-profile-modal>

@@ -1,0 +1,17 @@
+<div class="permissions-container">
+  <p class="section-title">Permisos de la Aplicación</p>
+  <div *ngFor="let app of aplicaciones">
+    <h2>{{ app.nameAplication }}</h2>
+    <div *ngFor="let module of app.modules">
+      <h3>- {{ module.nameModule }}</h3>
+      <div *ngFor="let subModule of module.subModules">
+        <h4>-- {{ subModule.nameSubModule }}</h4>
+        <ul>
+          <li *ngFor="let action of subModule.actions">
+            Acción: <b>{{ action.nameAction }}</b> <span style="color: #888;">({{ action.idAction }})</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,136 @@
+<div
+  class="registration-container bg-gray-50 min-h-screen p-8"
+  role="form"
+  aria-labelledby="registrationTitle"
+>
+  <mat-horizontal-stepper
+    [linear]="true"
+    #stepper
+    class="custom-stepper bg-white rounded-xl shadow-2xl overflow-hidden mx-auto"
+  >
+    @for (step of dynamicSteps; track step.formGroupName; let i = $index) {
+    <mat-step
+      [stepControl]="getFormGroup(step.formGroupName)"
+      [label]="step.label"
+      [editable]="isEditable"
+    >
+      <div class="step-content flex flex-col min-h-[600px] p-8 gap-6">
+        <!-- Header Section -->
+        <div class="background-paper px-10">
+          <h3 class="step-title text-3xl font-bold text-gray-800 mb-2">
+            {{ step.title }}
+          </h3>
+          <p class="step-subtitle text-lg text-gray-600">{{ step.subtitle }}</p>
+        </div>
+
+        <!-- Dynamic Content -->
+        <div class="flex-1 space-y-8">
+          @switch (step.component) { @case ('app-basic-info') {
+          <app-basic-info
+            [formGroupRef]="getFormGroup('basicInfo')"
+            class="block"
+            (hasSignatureChange)="handleSignatureChange($event)">
+          ></app-basic-info>
+          } @case ('app-contact-info') {
+          <app-contact-info
+            [formGroupRef]="getFormGroup('contactInfo')"
+            class="block"
+            
+          ></app-contact-info>
+            }@case ('app-signature-info') {
+            <app-signature-info
+              [formGroupRef]="getFormGroup('signatureInfo')"
+              class="block"
+            ></app-signature-info>
+      
+          } @case ('app-employee-info') {
+          <app-employee-info
+            [formGroupRef]="getFormGroup('employeeInfo')"
+            class="block"
+          ></app-employee-info>
+          } @case ('app-account-info') {
+          <app-account-info
+            [formGroupRef]="getFormGroup('accountInfo')"
+            class="block"
+          ></app-account-info>
+          } }
+        </div>
+
+        <!-- Actions Footer -->
+        <div class="step-actions mt-auto pt-8 border-t border-gray-200">
+          <div class="flex flex-col sm:flex-row justify-between gap-4">
+            <div class="flex justify-start">
+              @if (i > 0) {
+              <button
+                mat-stroked-button
+                class="prev-button flex items-center gap-2 px-6 py-3 text-gray-600 hover:bg-gray-50 transition-colors"
+                matStepperPrevious
+                aria-label="Anterior"
+              >
+                <mat-icon class="!w-6 !h-6">navigate_before</mat-icon>
+                <span class="hidden sm:inline">Anterior</span>
+              </button>
+              }
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+              @if (submitted && registrationForm.invalid) {
+              <div
+                class="error-message flex items-center gap-2 text-red-600 text-sm font-medium"
+              >
+                <mat-icon class="!w-5 !h-5">error_outline</mat-icon>
+                <span>Completa todos los campos requeridos</span>
+              </div>
+              }
+
+              <div class="flex gap-4">
+                @if (i < steps.length - 1) {
+                <button
+                  mat-raised-button
+                  class="next-button flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white transition-colors"
+                  matStepperNext
+                  [disabled]="getFormGroup(step.formGroupName).invalid"
+                  aria-label="Siguiente"
+                >
+                  <span class="hidden sm:inline">Siguiente</span>
+                  <mat-icon class="!w-6 !h-6">navigate_next</mat-icon>
+                </button>
+                } @if (i === steps.length - 1) {
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="submit-button flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white transition-colors"
+                  (click)="onSubmit()"
+                  [disabled]="registrationForm.invalid || loading"
+                  aria-label="Registrar Usuario"
+                >
+                  <mat-icon class="!w-6 !h-6"
+                    >@if(isEditable()){save}@else{edit}</mat-icon
+                  >
+                  @if (!loading) {
+                  <span>@if(isEditable()){Crear}@else{Actualizar}</span>
+                  } @if (loading) {
+                  <mat-spinner diameter="24" class="!w-6 !h-6"></mat-spinner>
+                  }
+                </button>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+    }
+
+    <!-- Custom Stepper Icons -->
+    <ng-template matStepperIcon="edit">
+      <mat-icon class="edit-icon !text-primary-600 !w-8 !h-8"
+        >edit_note</mat-icon
+      >
+    </ng-template>
+
+    <ng-template matStepperIcon="done">
+      <mat-icon class="done-icon !text-green-600 !w-8 !h-8">task_alt</mat-icon>
+    </ng-template>
+  </mat-horizontal-stepper>
+</div>

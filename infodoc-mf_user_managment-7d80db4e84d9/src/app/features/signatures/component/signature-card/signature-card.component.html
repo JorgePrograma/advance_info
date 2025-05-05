@@ -1,0 +1,72 @@
+<mat-card
+  class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 w-full"
+>
+  <mat-card-header class="text-slate-800 p-4 rounded-t-xl" >
+    <div class="flex items-center space-x-3">
+      <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+      <h2 class="text-xl font-semibold">{{ title }}</h2>
+    </div>
+  </mat-card-header>
+
+  <mat-divider class="!my-4"></mat-divider>
+
+  <mat-card-content class="p-4">
+    <div class="space-y-4">
+      @if (preview) {
+      <div
+        class="border-2 border-dashed border-gray-200 rounded-lg p-4 text-center animate-scale-in"
+      >
+        <img
+          [src]="preview"
+          [alt]="title"
+          class="w-full h-32 object-contain mb-2 transition-transform duration-300 hover:scale-105"
+        />
+        <span class="text-sm text-gray-600 break-words">{{ fileName }}</span>
+      </div>
+      } @else {
+      <div
+        class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer transition-all duration-300 hover:border-red-800 hover:bg-red-50 animate-pulse"
+        (click)="openFileSelector()"
+      >
+        <mat-icon class="text-red-800 !w-12 !h-12 !text-4xl mb-2 animate-bounce"
+          >cloud_upload</mat-icon
+        >
+        <p class="text-gray-700 font-medium mb-1">{{ uploadText }}</p>
+        <p class="text-sm text-gray-800">{{ allowedFormats }}</p>
+      </div>
+      }
+
+      <input
+        hidden
+        #fileInput
+        type="file"
+        [accept]="fileAccept"
+        (change)="handleFileInput($event)"
+      />
+    </div>
+
+    <ng-content></ng-content>
+  </mat-card-content>
+
+  <mat-card-actions class="p-4 border-t border-gray-100">
+    <div class="flex space-x-2 w-full">
+      <button
+        mat-raised-button
+        [disabled]="!preview"
+        class="!bg-red-600 !text-white !flex-1 hover:!bg-red-700 transition-all duration-300 disabled:!bg-gray-300 disabled:cursor-not-allowed animate-fade-in justify-center"
+        (click)="onSave.emit()"
+      >
+        <mat-icon>save</mat-icon>
+        <span class="ml-2">Guardar</span>
+      </button>
+      <button
+        mat-raised-button
+        [disabled]="!preview"
+        class="!bg-red-600 !text-white hover:!bg-red-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed animate-fade-in justify-center"
+        (click)="onClear.emit()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>

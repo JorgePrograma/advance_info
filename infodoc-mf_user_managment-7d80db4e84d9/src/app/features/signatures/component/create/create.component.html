@@ -1,0 +1,68 @@
+<div class="flex flex-col w-full">
+  <div class="mx-auto bg-red-800">
+    <div
+      class="px-10 flex flex-row justify-between items-center"
+    >
+      <h3 class="step-title text-3xl font-bold text-white">
+        Administración de firmas
+      </h3>
+      <button
+        class="text-white cursor-pointer hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-200 ease-in-out hover:scale-110 bg-transparent border-none p-0"
+        (click)="closeModal()"
+        (keydown.enter)="closeModal()"
+        matTooltip="Cerrar"
+        matTooltipPosition="below"
+        aria-label="Cerrar ventana"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="gap-6 mt-5 grid grid-cols-2 p-8 bg-white">
+      <!-- Firma Rubrica (Canvas) -->
+      <app-signature-card
+        title="Firma Rubrica"
+        icon="fingerprint"
+        [preview]="rubricaPreview()"
+        [fileName]="rubricaFile?.name || ''"
+        uploadText="Subir Certificado"
+        allowedFormats="Formatos: .jpg, .jpeg"
+        fileAccept="image/jpeg"
+        (fileSelected)="handleRubricaFile($event)"
+        (onSave)="saveSignature('rubrica')"
+        (onClear)="clearSignature('rubrica')"
+      >
+      </app-signature-card>
+
+      <!-- Firma Mecanica (Archivo) -->
+      <app-signature-card
+        title="Firma Mecanica"
+        icon="fingerprint"
+        [preview]="digitalPreview()"
+        [fileName]="digitalFile?.name || ''"
+        uploadText="Subir Certificado"
+        allowedFormats="Formatos: .jpg, .jpeg"
+        fileAccept="image/jpeg"
+        (fileSelected)="handleDigitalFile($event)"
+        (onSave)="saveSignature('digital')"
+        (onClear)="clearSignature('digital')"
+      >
+        <mat-form-field
+          appearance="outline"
+          class="w-full animate-fade-in mt-10"
+        >
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            type="password"
+            [(ngModel)]="digitalPassword"
+            class="!text-lg !font-semibold focus:!ring-2 !ring-red-800"
+          />
+          <mat-icon matSuffix class="!text-gray-400 animate-pulse">
+            lock
+          </mat-icon>
+        </mat-form-field>
+      </app-signature-card>
+    </div>
+  </div>
+</div>

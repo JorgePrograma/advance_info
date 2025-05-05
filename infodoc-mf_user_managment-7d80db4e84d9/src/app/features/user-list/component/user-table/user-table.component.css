@@ -1,0 +1,56 @@
+::ng-deep .datatable-body-row {
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+::ng-deep .datatable-header {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
+
+::ng-deep .datatable-row-group {
+  border-top: 1px solid #e5e7eb;
+}
+
+::ng-deep .datatable-row-center {
+  padding: 0 12px;
+}
+
+::ng-deep .datatable-row-group {
+  border-top: 1px solid #e5e7eb; /* gris claro */
+}
+
+
+::ng-deep .mat-mdc-icon-button .mdc-button__label, .mat-mdc-icon-button .mat-icon {
+  height: 100px;
+}
+
+.ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell {
+  text-align: left !important;
+}
+
+
+
+
+/* En user-table.component.css */
+.centered-table .datatable-header-cell,
+.centered-table .datatable-body-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center !important;
+}
+
+.centered-table .datatable-header-cell-label {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Ajustar ancho de columnas */
+.datatable-header-cell,
+.datatable-body-cell {
+  min-width: 120px;
+  max-width: 200px;
+  padding: 0 8px !important;
+}

@@ -1,0 +1,25 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Color personalizado en Tailwind */
+  .bg-custom-primary {
+    @apply bg-[#c12c3b] hover:bg-[#a82330] transition-colors;
+  }
+
+  button {
+    @apply px-10 py-2 rounded-lg bg-custom-primary text-white;
+
+    /* Material buttons */
+    &.mat-button, &.mat-raised-button, &.mat-flat-button, &.mat-stroked-button {
+      @apply bg-custom-primary text-white;
+    }
+  }
+}
+
+/* Opcional: Para aplicar el color en elementos específicos */
+#c12c3b {
+  background-color: #c12c3b;
+}

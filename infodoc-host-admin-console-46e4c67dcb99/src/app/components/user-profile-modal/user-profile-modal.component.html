@@ -1,0 +1,32 @@
+<div class="host_title">
+  <h2 class="host-modal-title">Hola,</h2>
+  <p class="host-modal-name">{{ user.name }}</p>
+</div>
+
+<div class="host-modal-container">
+  <div class="host-info-section">
+    <p class="host-info-item">
+      <span class="host-label">Unidad Administrativa:</span> 
+      <span class="host-value">{{ user.unidadAdministrativa }}</span>
+    </p>
+    <p class="host-info-item">
+      <span class="host-label">Oficina:</span> 
+      <span class="host-value">{{ user.oficina }}</span>
+    </p>
+    <p class="host-info-item">
+      <span class="host-label">Cargo:</span> 
+      <span class="host-value">{{ user.cargo }}</span>
+    </p>
+  </div>
+  
+  <div class="host-actions">
+    <button class="host-logout-button"
+            (click)="logOut()">
+      CERRAR SESIÓN
+    </button>
+    <button class="host-close-button"
+            (click)="closeModal()">
+      Cerrar
+    </button>
+  </div>
+</div>

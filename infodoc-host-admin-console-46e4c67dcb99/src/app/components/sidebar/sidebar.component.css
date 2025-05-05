@@ -1,0 +1,225 @@
+aside::-webkit-scrollbar {
+  width: 6px;
+}
+
+aside::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 65%, 0 60%);
+}
+
+
+.submenu-container {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.submenu-container.expanded {
+  max-height: 500px;
+}
+
+.submenu-arrow {
+  transition: transform 0.2s;
+  font-size: 14px;
+}
+
+.submenu-item {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+/* Estilos base para el sidebar */
+.host-sidebar {
+  height: 100vh;
+  position: relative;
+  color: white;
+  transition: width 0.3s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.host-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.host-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+/* Controles de expansión y colapso */
+.host-sidebar-expanded {
+  width: 16rem; /* equivalente a w-64 */
+}
+
+.host-sidebar-collapsed {
+  width: 5rem; /* equivalente a w-20 */
+}
+
+/* Fondos y efectos visuales */
+.host-sidebar-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, #9B1B30, #d43f4f);
+}
+
+.host-sidebar-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #9B1B30;
+  clip-path: polygon(0 0, 100% 0, 100% 65%, 0 60%);
+}
+
+/* Menú de navegación */
+.host-nav {
+  position: relative;
+  z-index: 10;
+}
+
+.host-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.host-nav-item {
+  margin-top: 0.25rem;
+}
+
+.host-nav-item:first-child {
+  margin-top: 0;
+}
+
+.host-nav-button {
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.host-nav-button:hover {
+  background-color: #7D1923;
+}
+
+.host-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.host-material-icon {
+  font-family: 'Material Icons Outlined';
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.host-nav-label {
+  margin-left: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.host-hidden {
+  display: none;
+}
+
+.host-expand-icon {
+  stroke: #fff !important; 
+  color: #FFF !important;
+  fill: #FFF !important;   
+  margin-left: auto;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.host-expand-icon.host-expanded {
+  transform: rotate(180deg);
+}
+
+/* Submenu */
+.host-submenu-container {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.host-submenu-container.host-expanded {
+  max-height: 500px;
+}
+
+.host-submenu {
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.host-submenu-item-container {
+  margin: 0;
+}
+
+.host-submenu-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 2.5rem;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.host-submenu-item:hover {
+  background-color: #7D1923;
+}
+
+.host-submenu-arrow {
+  margin-right: 0.5rem;
+  display: inline-flex;
+  transition: transform 0.2s;
+  align-items: center;
+}
+
+.host-submenu-label {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+
+/* Cambiar color de las flechas a blanco */
+.host-expand-icon svg {
+  stroke: #fff !important; 
+  color: #FFF !important;
+  fill: #FFF !important;   
+}
+
+
+
+/* Si tienes flechas en submenús, también aplica este estilo */
+.host-submenu-arrow svg {
+  stroke: #fff !important; 
+  color: #FFF !important;
+  fill: #FFF !important;   
+}
+

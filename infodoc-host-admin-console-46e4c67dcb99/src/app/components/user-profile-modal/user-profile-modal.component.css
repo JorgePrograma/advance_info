@@ -1,0 +1,117 @@
+.modal-container {
+  position: absolute;
+  width: 384px;
+  background: white;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  z-index: 1000;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+:host {
+  position: fixed;
+  z-index: 1000;
+}
+
+:host {
+  position: fixed;
+  z-index: 1000;
+}
+
+.host-modal-container {
+  position: absolute;
+  width: 384px;
+  background: linear-gradient(to bottom, #9B1B30, #d43f4f);
+  background-size: 100% 100%;
+  color: #FFF;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  z-index: 1000;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.host-modal-title {
+  font-size: 1.125rem;
+  font-weight: 600; 
+  margin-bottom: 0.5rem;
+}
+
+.host_title{
+  width: 384px;
+  height: auto;
+  background: white;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 2px 16px;
+  z-index: 1000;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 0%;
+  background: #FFF;
+  color: #6b7280;
+}
+
+.host-modal-name {
+  font-size: 1.25rem; 
+  font-weight: 700; 
+}
+
+.host-info-section {
+  margin-top: 1rem; 
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; 
+  line-height: 16px;
+}
+
+.host-info-item {
+  margin-bottom: 0.5rem;
+}
+
+.host-label {
+  font-weight: 500; 
+}
+
+.host-value {
+  font-weight: 700; 
+}
+
+.host-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.host-logout-button {
+  background-color: #FFF; 
+  color: #d43f4f ; 
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem; 
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.host-logout-button:hover {
+  background-color: #FFF; 
+}
+
+.host-close-button {
+  color: #FFF; 
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+}
+
+.host-close-button:hover {
+  color: #fff;
+}

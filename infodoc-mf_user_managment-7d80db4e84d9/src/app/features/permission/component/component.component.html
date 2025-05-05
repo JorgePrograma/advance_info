@@ -1,0 +1,15 @@
+<!-- component.component.html -->
+  <div class="permissions-container">
+    <p class="section-title">Aplicaciones con permisos</p>
+
+    <!-- Botón específico para BtnSinTramitar -->
+    <button
+      class="action-button"
+      *appHasPermission="permission.CREATE_USER"
+    >
+      <mat-icon>pending_actions</mat-icon>
+    </button>
+<span></span>
+  </div>
+
+

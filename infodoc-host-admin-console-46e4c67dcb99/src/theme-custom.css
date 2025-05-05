@@ -1,0 +1,226 @@
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+
+:root {
+  /* Colores primarios */
+  --mat-sys-primary: #9B1B30;  
+  --mat-sys-primary-container: #E7D9D1;  
+  --mat-sys-on-primary: #FFFFFF;  
+  --mat-sys-on-primary-container: #1F1813; 
+  
+  /* Colores secundarios */
+  --mat-sys-secondary: #E94B3C;  
+  --mat-sys-secondary-container: #E7D9D1; 
+  --mat-sys-on-secondary: #FFFFFF;  
+  --mat-sys-on-secondary-container: #1F1813; 
+  
+  /* Colores terciarios */
+  --mat-sys-tertiary: #C12C3B;  
+  --mat-sys-tertiary-container: #E7D9D1; 
+  --mat-sys-on-tertiary: #FFFFFF;
+  --mat-sys-on-tertiary-container: #1F1813; 
+  
+  /* Variantes de superficie */
+  --mat-sys-surface-tint: #9B1B30; 
+  --mat-sys-surface: #FFFFFF; 
+  --mat-sys-surface-container: #E7D9D1; 
+  
+  /* Colores de texto y contorno */
+  --mat-sys-on-surface: #1F1813; 
+  --mat-sys-on-surface-variant: #717A7B; 
+  --mat-sys-outline: #717A7B; 
+  
+  /* Colores de error */
+  --mat-sys-error: #710C1D; 
+  --mat-sys-on-error: #FFFFFF; 
+  
+  /* Sistema de tipografía */
+  --mat-typography-font-family: 'Montserrat', sans-serif;
+  
+  /* Escala de tipografía */
+  --mat-font-size-xs: 12px;
+  --mat-font-size-sm: 14px;
+  --mat-font-size-base: 16px;
+  --mat-font-size-md: 18px;
+  --mat-font-size-lg: 20px;
+  --mat-font-size-xl: 24px;
+  --mat-font-size-2xl: 30px;
+  --mat-font-size-3xl: 36px;
+  --mat-font-size-4xl: 48px;
+  
+  /* Pesos de fuente */
+  --mat-font-weight-light: 300;
+  --mat-font-weight-regular: 400;
+  --mat-font-weight-medium: 500;
+  --mat-font-weight-semibold: 600;
+  --mat-font-weight-bold: 700;
+  --mat-font-weight-extrabold: 800;
+  
+  /* Sistema de espaciado */
+  --mat-spacing-xs: 4px;
+  --mat-spacing-sm: 8px;
+  --mat-spacing-md: 16px;
+  --mat-spacing-lg: 24px;
+  --mat-spacing-xl: 32px;
+  --mat-spacing-2xl: 48px;
+  --mat-spacing-3xl: 64px;
+  
+  /* Sistema de elevación/sombras */
+  --mat-shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+  --mat-shadow-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  --mat-shadow-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  --mat-shadow-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  --mat-shadow-5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  
+  /* Sistema de bordes y radios */
+  --mat-border-radius-sm: 4px;
+  --mat-border-radius-md: 8px;
+  --mat-border-radius-lg: 16px;
+  --mat-border-radius-full: 9999px;
+  
+  /* Transiciones */
+  --mat-transition-fast: 0.15s ease;
+  --mat-transition-normal: 0.3s ease;
+  --mat-transition-slow: 0.5s ease;
+}
+
+.mat-mdc-card-title {
+  font-family: 'Exo 2', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+.mat-mdc-button, 
+.mat-mdc-raised-button, 
+.mat-mdc-outlined-button, 
+.mat-mdc-unelevated-button {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 500 !important;
+}
+
+/* Estilos adicionales para encabezados con Exo 2 */
+.titulo-principal {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 900;
+  color: var(--mat-sys-primary);
+}
+
+.subtitulo {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  color: var(--mat-sys-secondary);
+}
+
+/* Estilos para texto con Montserrat */
+.texto-cuerpo {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  color: var(--mat-sys-on-surface);
+}
+
+.texto-destacado {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: var(--mat-sys-tertiary);
+}
+
+/* Clases utilitarias */
+.titulo-principal {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: var(--mat-font-weight-extrabold);
+    font-size: var(--mat-font-size-2xl);
+    color: var(--mat-sys-primary);
+    margin-bottom: var(--mat-spacing-md);
+    line-height: 1.2;
+  }
+  
+  .titulo-seccion {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: var(--mat-font-weight-bold);
+    font-size: var(--mat-font-size-xl);
+    color: var(--mat-sys-primary);
+    margin-bottom: var(--mat-spacing-sm);
+  }
+  
+  .subtitulo {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: var(--mat-font-weight-bold);
+    font-size: var(--mat-font-size-lg);
+    color: var(--mat-sys-secondary);
+    margin-bottom: var(--mat-spacing-sm);
+  }
+  
+  .texto-cuerpo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: var(--mat-font-weight-regular);
+    font-size: var(--mat-font-size-base);
+    color: var(--mat-sys-on-surface);
+    line-height: 1.6;
+  }
+  
+  .texto-destacado {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: var(--mat-font-weight-semibold);
+    color: var(--mat-sys-tertiary);
+  }
+  
+  .texto-pequeño {
+    font-size: var(--mat-font-size-sm);
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  /* Badges y etiquetas */
+.badge {
+    display: inline-block;
+    padding: var(--mat-spacing-xs) var(--mat-spacing-sm);
+    border-radius: var(--mat-border-radius-full);
+    font-size: var(--mat-font-size-xs);
+    font-weight: var(--mat-font-weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .badge-primary {
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
+  }
+  
+  .badge-secondary {
+    background-color: var(--mat-sys-secondary);
+    color: var(--mat-sys-on-secondary);
+  }
+  
+  .badge-success {
+    background-color: var(--mat-sys-success);
+    color: var(--mat-sys-on-success);
+  }
+  
+  .badge-warning {
+    background-color: var(--mat-sys-warning);
+    color: var(--mat-sys-on-warning);
+  }
+  
+  .badge-error {
+    background-color: var(--mat-sys-error);
+    color: var(--mat-sys-on-error);
+  }
+  
+  /* Contenedores y layouts */
+.contenedor {
+    padding: var(--mat-spacing-md);
+    border-radius: var(--mat-border-radius-md);
+    background-color: var(--mat-sys-surface);
+    box-shadow: var(--mat-shadow-1);
+  }
+  
+  .contenedor-elevado {
+    padding: var(--mat-spacing-md);
+    border-radius: var(--mat-border-radius-md);
+    background-color: var(--mat-sys-surface-container-high);
+    box-shadow: var(--mat-shadow-2);
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--mat-spacing-md);
+  }
+  
