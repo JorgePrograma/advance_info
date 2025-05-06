@@ -1,0 +1,20 @@
+<!-- Loader para operaciones internas después de la carga inicial -->
+<div *ngIf="isLoading" class="host-loader-container">
+    <span class="host-loader"></span>
+  </div>
+
+  <div class="host-app-container">
+    <!-- Header en la parte superior, ocupando todo el ancho -->
+    <app-header></app-header>
+
+    <!-- Contenedor principal que contiene sidebar y área de contenido -->
+    <div class="host-main-wrapper">
+      <!-- Sidebar a la izquierda -->
+      <app-sidebar></app-sidebar>
+
+      <!-- Área principal donde se cargarán los microfrontends -->
+      <main class="host-main-content">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>

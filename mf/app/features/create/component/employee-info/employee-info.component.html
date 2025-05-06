@@ -1,0 +1,42 @@
+<div [formGroup]="formGroupRef" class="employee-info-container pt-5">
+  <!-- Campos del formulario dinámico -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-x-10">
+    <app-dynamic-form-field
+      *ngFor="let field of basicInfoFields()"
+      [formGroupRef]="formGroupRef"
+      [config]="field">
+    </app-dynamic-form-field>
+  </div>
+
+  <!-- Tabla de grupos seleccionados -->
+  <mat-card *ngIf="selectedGroups.length > 0" class="groups-card">
+    <mat-card-header class="bg-red-800 text-white font-semibold rounded-t-lg">
+      <mat-card-title>Grupos asignados</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="selectedGroups" class="groups-table">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let group">{{group.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Descripción</th>
+          <td mat-cell *matCellDef="let group">{{group.description || 'Sin descripción'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let group">
+            <button mat-icon-button color="warn" (click)="removeGroup(group.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

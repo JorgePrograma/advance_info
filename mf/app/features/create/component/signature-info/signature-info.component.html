@@ -1,0 +1,37 @@
+<!-- signature-info.component.html -->
+<div [formGroup]="formGroupRef" class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-5">
+  <!-- Firma Mecánica -->
+  <app-signature-card
+    title="Firma Mecánica"
+    icon="edit"
+    [formGroupRef]="formGroupRef"
+    controlName="signatureImageMechanic"
+    (fileSelected)="handleFileSelected($event, 'signatureImageMechanic')"
+    (clear)="clearSignature('signatureImageMechanic')"
+  >
+  </app-signature-card>
+
+  <!-- Rúbrica con campo de contraseña -->
+  <app-signature-card
+    title="Rúbrica"
+    icon="draw"
+    [formGroupRef]="formGroupRef"
+    controlName="signatureImageRubric"
+    (fileSelected)="handleFileSelected($event, 'signatureImageRubric')"
+    (clear)="clearSignature('signatureImageRubric')"
+  >
+    <mat-form-field appearance="outline" class="w-full mt-4">
+      <mat-label>Contraseña para firma</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        required
+      />
+      <mat-icon matSuffix>lock</mat-icon>
+      <mat-error *ngIf="formGroupRef.get('password')?.hasError('required')">
+        La contraseña es requerida
+      </mat-error>
+    </mat-form-field>
+  </app-signature-card>
+</div>

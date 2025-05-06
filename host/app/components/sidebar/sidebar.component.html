@@ -1,0 +1,56 @@
+<aside class="host-sidebar"
+       [class.host-sidebar-expanded]="!collapsed"
+       [class.host-sidebar-collapsed]="collapsed"
+       (mouseenter)="onSidebarMouseEnter()"
+       (mouseleave)="onSidebarMouseLeave()">
+
+  <div class="host-sidebar-gradient"></div>
+  <div class="host-sidebar-background"></div>
+
+  <!-- Menú de Navegación -->
+  <nav class="host-nav">
+    <ul class="host-nav-list">
+      <li *ngFor="let item of menuItems" class="host-nav-item">
+        <button (click)="toggleSubMenu(item, menuItems)" class="host-nav-button">
+          <img [src]="'assets/icons/' + item.icon" class="host-icon" alt="{{ item.label }} icon">
+          <span class="host-nav-label" [class.host-hidden]="collapsed">{{ item.label }}</span>
+          <span class="host-expand-icon" *ngIf="item.children" [class.host-hidden]="collapsed"
+                [class.host-expanded]="item.expanded">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </span>
+        </button>
+
+        <!-- Submenú nivel 1 -->
+        <div class="host-submenu-container" [class.host-expanded]="item.expanded && !collapsed">
+          <ul *ngIf="item.children" class="host-submenu">
+            <li *ngFor="let subItem of item.children" class="host-submenu-item-container">
+              <a class="host-submenu-item"
+                 (click)="toggleSubMenu(subItem, item.children); $event.stopPropagation()"
+                 [class.active]="isActive(subItem.route)">
+                <span class="host-submenu-label">{{ subItem.label }}</span>
+                <span *ngIf="subItem.children" class="host-submenu-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </span>
+              </a>
+
+              <!-- Submenú nivel 2 (acciones) -->
+              <ul *ngIf="subItem.children && subItem.expanded" class="host-submenu">
+                <li *ngFor="let actionItem of subItem.children" class="host-submenu-item-container">
+                  <a class="host-submenu-item"
+                     (click)="navigateTo(actionItem.route); $event.stopPropagation()"
+                     [class.active]="isActive(actionItem.route)">
+                    <span class="host-submenu-label">{{ actionItem.label }}</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</aside>
