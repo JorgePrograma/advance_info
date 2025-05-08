@@ -1,0 +1,130 @@
+<div
+  [formGroup]="formGroupRef"
+  class="flex flex-col items-center p-6 max-w-4xl mx-auto space-y-6"
+>
+  <!-- Sección principal -->
+  <div class="w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+      Configuración de cuenta
+    </h2>
+
+    <div class="flex flex-col gap-6">
+      <!-- Campo Avatar -->
+      <app-avatar-selector [formGroupRef]="formGroupRef"></app-avatar-selector>
+      <!-- Campo Role -->
+      <mat-form-field
+  *appHasPermission="permission.LIST_ROLES_FOR_CREATE"
+      appearance="outline" class="w-full">
+        <mat-label class="text-gray-600">Rol</mat-label>
+        <mat-select formControlName="role" class="!text-gray-700">
+          <mat-option value="">Seleccione</mat-option>
+          @for (option of rolesOptions(); track option.value) {
+          <mat-option [value]="option.value" class="!py-2">
+            {{ option.label }}
+          </mat-option>
+          }
+        </mat-select>
+        <mat-icon matSuffix class="!text-gray-400">arrow_drop_down</mat-icon>
+      </mat-form-field>
+    </div>
+    <!-- Toggle Directorio Activo -->
+    <div
+      class="flex items-center justify-between p-4 bg-gray-50 rounded-lg transition-colors hover:bg-gray-100"
+    >
+      <div class="space-y-1">
+        <mat-label class="text-gray-700 font-medium"
+          >Directorio Activo</mat-label
+        >
+        <p class="text-sm text-gray-500">
+          Habilita la integración con servicios de directorio
+        </p>
+      </div>
+      <mat-slide-toggle
+        color="primary"
+        formControlName="isDirectoryActive"
+        (change)="onDirectoryActiveChange()"
+        class="!ml-4"
+      >
+      </mat-slide-toggle>
+    </div>
+  </div>
+
+  <!-- Sección Directorio Activo -->
+  @if (!isDirectoryActive) {
+  <div
+    class="w-full bg-white rounded-xl shadow-lg p-8 space-y-6 animate-fade-in"
+  >
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">
+      Datos de autenticación
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Usuario -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label class="text-gray-600">Usuario</mat-label>
+        <input
+          matInput
+          formControlName="user"
+          placeholder="Nombre de usuario"
+          class="!text-gray-700"
+        />
+        <mat-icon matSuffix class="!text-gray-400">person</mat-icon>
+        @if (formGroupRef.get('user')?.invalid &&
+        formGroupRef.get('user')?.touched) {
+        <mat-error class="text-sm">Usuario requerido</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Contraseña -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label class="text-gray-600">Contraseña</mat-label>
+        <input
+          matInput
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="••••••••"
+          class="!text-gray-700"
+        />
+        <div matSuffix class="flex items-center gap-2 !mr-2">
+          <mat-icon
+            class="!text-gray-400 cursor-pointer hover:!text-gray-600 transition-colors"
+            (click)="showPassword = !showPassword"
+          >
+            {{ showPassword ? "visibility_off" : "visibility" }}
+          </mat-icon>
+          <mat-icon class="!text-gray-400">lock</mat-icon>
+        </div>
+        @if (formGroupRef.get('password')?.invalid &&
+        formGroupRef.get('password')?.touched) {
+        <mat-error class="text-sm">Contraseña no valida</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Confirmación de Contraseña -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label class="text-gray-600">Confirmar Contraseña</mat-label>
+        <input
+          matInput
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          formControlName="confirmationPassword"
+          placeholder="••••••••"
+          class="!text-gray-700"
+        />
+        <div matSuffix class="flex items-center gap-2 !mr-2">
+          <mat-icon
+            class="!text-gray-400 cursor-pointer hover:!text-gray-600 transition-colors"
+            (click)="showConfirmPassword = !showConfirmPassword"
+          >
+            {{ showConfirmPassword ? "visibility_off" : "visibility" }}
+          </mat-icon>
+          <mat-icon class="!text-gray-400">lock_reset</mat-icon>
+        </div>
+        @if (formGroupRef.get('confirmationPassword')?.invalid &&
+        formGroupRef.get('confirmationPassword')?.touched) {
+        <mat-error class="text-sm">Las contraseñas no coinciden</mat-error>
+        }
+      </mat-form-field>
+    </div>
+  </div>
+  }
+</div>

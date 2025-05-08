@@ -1,0 +1,98 @@
+<div class="avatar-selector-container flex flex-col justify-center">
+  <!-- Input oculto para seleccionar archivo -->
+   <strong>Avatar</strong>
+  <input
+    #fileInput
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    class="hidden"
+  />
+
+  <!-- Área de arrastrar y soltar / Previsualización -->
+  <div
+    class="relative w-40 h-40 mx-auto rounded-full transition-all duration-300 cursor-pointer overflow-hidden shadow-md"
+    [class]="isDragging ? 'border-primary border-2 border-dashed bg-primary-50' :
+             (previewUrl ? 'border-0' : 'border-gray-300 border-2 border-dashed hover:border-primary-400')"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+    (click)="fileInput.click()"
+    (keydown)="onKeyDown($event)"
+    tabindex="0"
+    role="button"
+    aria-label="Seleccionar avatar"
+  >
+    <!-- Cuando no hay imagen -->
+    @if (!previewUrl) {
+      <div class="flex flex-col items-center justify-center h-full text-center py-4 px-2">
+        <div class="bg-primary-100 rounded-full w-12 h-12 flex items-center justify-center mb-2">
+          <mat-icon class="text-2xl text-primary-500">person_add</mat-icon>
+        </div>
+        <p class="text-xs font-medium text-gray-700 mb-1">
+          Seleccionar avatar
+        </p>
+        <p class="text-[10px] text-gray-500 px-2">
+          JPG, PNG ({{ maxFileSize }}MB)
+        </p>
+      </div>
+    }
+
+    <!-- Previsualización de la imagen -->
+    @if (previewUrl) {
+      <div class="h-full w-full">
+        <img
+          [src]="previewUrl"
+          alt="Avatar"
+          class="w-full h-full object-cover"
+        >
+        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 flex items-center justify-center transition-all duration-200">
+          <div class="bg-white rounded-full p-2 shadow-lg transform translate-y-10 opacity-0 hover:translate-y-0 hover:opacity-100 transition-all duration-200">
+            <mat-icon class="text-primary-500">edit</mat-icon>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Indicador de carga -->
+    @if (isLoading) {
+      <div class="absolute inset-0 bg-white bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-10">
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 border-3 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
+          <p class="mt-2 text-xs font-medium text-gray-700">Procesando...</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Nombre del archivo -->
+  @if (file) {
+    <p class="mt-2 text-xs text-center text-gray-600 truncate max-w-[160px] mx-auto">
+      {{ file.name }}
+    </p>
+  }
+
+  <!-- Mensajes de error -->
+  @if (formGroupRef.get('avatarPath')?.invalid && formGroupRef.get('avatarPath')?.touched) {
+    <div class="mt-2 max-w-[200px] mx-auto">
+      @if (formGroupRef.get('avatarPath')?.errors?.['required']) {
+        <div class="flex items-center bg-red-50 text-red-700 px-2 py-1 rounded-md text-xs">
+          <mat-icon class="text-sm mr-1 text-red-500">error_outline</mat-icon>
+          <span>Se requiere imagen</span>
+        </div>
+      }
+      @if (formGroupRef.get('avatarPath')?.errors?.['invalidImage']) {
+        <div class="flex items-center bg-red-50 text-red-700 px-2 py-1 rounded-md text-xs">
+          <mat-icon class="text-sm mr-1 text-red-500">error_outline</mat-icon>
+          <span>Imagen no válida</span>
+        </div>
+      }
+      @if (formGroupRef.get('avatarPath')?.errors?.['fileSize']) {
+        <div class="flex items-center bg-red-50 text-red-700 px-2 py-1 rounded-md text-xs">
+          <mat-icon class="text-sm mr-1 text-red-500">error_outline</mat-icon>
+          <span>Excede {{ maxFileSize }}MB</span>
+        </div>
+      }
+    </div>
+  }
+</div>

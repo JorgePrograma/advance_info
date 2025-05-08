@@ -1,0 +1,17 @@
+<!-- basic-info.component.html -->
+<div [formGroup]="formGroupRef" class="grid grid-cols-2 md:grid-cols-4 gap-x-10 pt-5">
+  <!-- Iteramos sobre la configuración de campos definida en el componente -->
+  <app-dynamic-form-field
+    *ngFor="let field of basicInfoFields"
+    [formGroupRef]="formGroupRef"
+    [config]="field">
+  </app-dynamic-form-field>
+  <!-- Agrega este switch al final -->
+  <div class="col-span-full"
+  *appHasPermission="permission.MANAGE_SIGNATURES"
+>
+    <mat-slide-toggle formControlName="hasSignature" color="primary">
+      ¿Requiere firma digital?
+    </mat-slide-toggle>
+  </div>
+</div>
