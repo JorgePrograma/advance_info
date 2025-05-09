@@ -1,0 +1,264 @@
+<!-- user-table.component.html -->
+<div class="w-full flex justify-center mt-6">
+  <mat-card class="shadow-lg w-full mx-auto">
+    <!-- Aumentado max-w un poco -->
+    <!-- En tu user-table.component.html -->
+    <div *ngIf="currentPermissions.length > 0">
+      <h3>Permisos disponibles:</h3>
+      <ul>
+        <li *ngFor="let permission of currentPermissions">{{ permission }}</li>
+      </ul>
+    </div>
+
+    <mat-card-content class="p-4 md:p-6">
+      <!-- Formulario de Filtros -->
+      <form
+        [formGroup]="filtroForm"
+        class="grid grid-cols-4 gap-4 items-end mb-6"
+      >
+        <mat-form-field appearance="outline" class="flex-1 min-w-[200px]">
+          <!-- Cambiado a outline -->
+          <mat-label>Búsqueda general</mat-label>
+          <input
+            matInput
+            formControlName="search"
+            placeholder="Buscar nombre, apellido, numero documento, correo"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <!-- Campo Role -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Rol</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="">Todos</mat-option>
+            @for (option of rolesOptions(); track option.value.id) {
+            <mat-option [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Campo Grupos -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Grupos</mat-label>
+          <mat-select formControlName="group">
+            <mat-option value="">Todos</mat-option>
+            @for (option of groupOptions(); track option.value) {
+            <mat-option [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="flex-1 min-w-[150px]">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="estado">
+            <mat-option value="">Todos</mat-option>
+            <mat-option value="active">Habilitado</mat-option>
+            <mat-option value="inactive">Deshabilitado</mat-option>
+            <mat-option value="blocked">Bloqueado</mat-option>
+            <mat-option value="suspended">Suspendido</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+
+      <!-- Encabezado de la tabla -->
+      <div class="flex gap-5 flex-col">
+        <button
+          mat-raised-button
+          color="primary"
+          class="submit-button flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white transition-colors w-40"
+          (click)="newUser()"
+          aria-label="Registrar Usuario"
+          *appHasPermission="permission.CREATE_USER"
+        >
+          nuevo usuario
+        </button>
+        <div
+          class="bg-red-800 text-white text-lg font-semibold px-6 py-4 rounded-t-md shadow-sm"
+        >
+          Listado de Usuarios
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <div
+        class="overflow-x-auto border border-gray-300 rounded-b-md shadow-md"
+      >
+        <ngx-datatable
+          class="material"
+          [rows]="pagedRows"
+          [columns]="columns"
+          [headerHeight]="50"
+          [footerHeight]="0"
+          [rowHeight]="70"
+          [columnMode]="'force'"
+          [externalPaging]="true"
+          [count]="filteredUsers.length"
+          [offset]="page.offset"
+          [limit]="page.limit"
+          [messages]="{ emptyMessage: 'No hay datos para mostrar' }"
+        >
+          <!-- Columnas -->
+          <ngx-datatable-column
+            *ngFor="let col of columns"
+            [name]="col.name"
+            [prop]="col.prop"
+            [sortable]="col.sortable !== false"
+            [width]="col.width"
+            [headerClass]="col.headerClass"
+            [cellClass]="col.cellClass"
+          >
+            <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="font-semibold">{{ column.name }}</span>
+            </ng-template>
+
+            <ng-template
+              let-row="row"
+              let-value="value"
+              let-rowIndex="rowIndex"
+              ngx-datatable-cell-template
+            >
+              <ng-container [ngSwitch]="col.prop">
+                <span *ngSwitchCase="'index'" class="font-medium text-gray-700">
+                  {{ page.offset * page.limit + rowIndex + 1 }}
+                </span>
+                <!-- Estado -->
+                <span *ngSwitchCase="'user.state'">
+                  <ng-container
+                    *ngFor="let state of activeStates(row.user?.state)"
+                  >
+                    <mat-icon [color]="state.color">{{ state.icon }}</mat-icon>
+                  </ng-container>
+                </span>
+
+                <!-- Acciones -->
+                <div
+                  *ngSwitchCase="'actions'"
+                  class="flex justify-center items-center h-full"
+                >
+                  <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="menu"
+                    matTooltip="Acciones"
+                  >
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+
+                  <mat-menu #menu="matMenu">
+                    <!-- Estado: Activar/Desactivar -->
+                    <span
+                      class="flex justify-center bg-red-800 p-4 text-white font-semibold"
+                    >
+                      Cambiar estado
+                    </span>
+                    <mat-divider> </mat-divider>
+                    <ng-container
+                      *ngFor="let state of availableStates(row.user?.state)"
+                    >
+                      <button
+                        mat-menu-item
+                        (click)="changeUserStatus(row, state.key)"
+                      >
+                        <mat-icon [color]="state.color">{{
+                          state.icon
+                        }}</mat-icon>
+                        <span>{{ state.label }}</span>
+                      </button>
+                    </ng-container>
+
+                    <!-- Eliminación (separador visual) -->
+                    <mat-divider></mat-divider>
+                    <span
+                      class="flex justify-center bg-red-800 p-4 text-white font-semibold"
+                      >acciones</span
+                    >
+
+                    <!-- Editar -->
+                    <button
+                      mat-menu-item
+                      (click)="editUser(row)"
+                      *appHasPermission="permission.UPDATE_USER"
+                    >
+                      <mat-icon color="primary">edit</mat-icon>
+                      <span>Editar</span>
+                    </button>
+
+                    <ng-container *ngIf="row.user?.state !== 'deleted'">
+                      <button
+                        *appHasPermission="permission.DELETE_USER"
+                        mat-menu-item
+                        (click)="changeUserStatus(row, 'deleted')"
+                      >
+                        <mat-icon color="warn">delete_forever</mat-icon>
+                        <span>Eliminar</span>
+                      </button>
+                    </ng-container>
+                  </mat-menu>
+                </div>
+
+                <!-- Valores normales -->
+                <span *ngSwitchDefault class="break-words">
+                  {{ getNestedValue(row, col.prop) }}
+                </span>
+              </ng-container>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+
+      <!-- Paginación -->
+      <div
+        class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 bg-white border border-t-0 rounded-b-md"
+      >
+        <div>
+          Elementos por página:
+          <select
+            class="ml-2 border rounded px-2 py-1"
+            [(ngModel)]="page.limit"
+            (change)="onPageChange(0)"
+          >
+            <option [value]="5">5</option>
+            <option [value]="10">10</option>
+            <option [value]="25">25</option>
+          </select>
+        </div>
+
+        <div>{{ getCurrentRange() }} de {{ filteredUsers.length }}</div>
+
+        <div class="space-x-2">
+          <button
+            mat-icon-button
+            (click)="onPageChange(0)"
+            [disabled]="page.offset === 0"
+          >
+            <mat-icon>first_page</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            (click)="onPageChange(page.offset - 1)"
+            [disabled]="page.offset === 0"
+          >
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            (click)="onPageChange(page.offset + 1)"
+            [disabled]="(page.offset + 1) * page.limit >= filteredUsers.length"
+          >
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            (click)="onPageChange(getTotalPages() - 1)"
+            [disabled]="(page.offset + 1) * page.limit >= filteredUsers.length"
+          >
+            <mat-icon>last_page</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

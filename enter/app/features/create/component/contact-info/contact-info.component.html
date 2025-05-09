@@ -1,0 +1,113 @@
+<div
+  [formGroup]="formGroupRef"
+  class="grid grid-cols-2 md:grid-cols-4 gap-x-10 pt-5"
+>
+  <!-- Campo País -->
+  <mat-form-field appearance="outline">
+    <mat-label>País</mat-label>
+    <mat-select formControlName="country">
+      <mat-option value="">Seleccione</mat-option>
+      <mat-option
+        *ngFor="let country of locationOptions()"
+        [value]="country.value"
+      >
+        {{ country.label }}
+      </mat-option>
+    </mat-select>
+    <mat-error
+      *ngIf="
+        formGroupRef.get('country')?.invalid &&
+        formGroupRef.get('country')?.touched
+      "
+    >
+      El país es requerido.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Campo Departamento -->
+  <mat-form-field appearance="outline">
+    <mat-label>Departamento</mat-label>
+    <mat-select formControlName="department" [disabled]="!selectedCountry()">
+      <mat-option value="">Seleccione</mat-option>
+      <mat-option
+        *ngFor="let department of departmentOptions()"
+        [value]="department.value"
+      >
+        {{ department.label }}
+      </mat-option>
+    </mat-select>
+    <mat-error
+      *ngIf="
+        formGroupRef.get('department')?.invalid &&
+        formGroupRef.get('department')?.touched
+      "
+    >
+      El departamento es requerido.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Campo Ciudad -->
+  <mat-form-field appearance="outline">
+    <mat-label>Ciudad</mat-label>
+    <mat-select formControlName="city" [disabled]="!selectedDepartment()">
+      <mat-option value="">Seleccione</mat-option>
+      <mat-option *ngFor="let city of cityOptions()" [value]="city.value">
+        {{ city.label }}
+      </mat-option>
+    </mat-select>
+    <mat-error
+      *ngIf="
+        formGroupRef.get('city')?.invalid && formGroupRef.get('city')?.touched
+      "
+    >
+      La ciudad es requerida.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Campo Dirección -->
+  <mat-form-field appearance="outline">
+    <mat-label>Dirección</mat-label>
+    <input
+      matInput
+      formControlName="address"
+      placeholder="Ingrese la dirección"
+    />
+    <mat-error
+      *ngIf="
+        formGroupRef.get('address')?.invalid &&
+        formGroupRef.get('address')?.touched
+      "
+    >
+      La dirección es requerida.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Campo Correo -->
+  <mat-form-field appearance="outline">
+    <mat-label>Correo</mat-label>
+    <input
+      matInput
+      type="email"
+      formControlName="email"
+      placeholder="Ingrese su correo electrónico"
+    />
+    <mat-error
+      *ngIf="
+        formGroupRef.get('email')?.invalid && formGroupRef.get('email')?.touched
+      "
+    >
+      El correo es requerido y debe ser válido.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Campo Teléfono -->
+  <mat-form-field appearance="outline">
+    <mat-label>Teléfono</mat-label>
+    <input
+      matInput
+      type="tel"
+      formControlName="phone"
+      placeholder="Ingrese su teléfono (opcional)"
+    />
+  </mat-form-field>
+</div>
